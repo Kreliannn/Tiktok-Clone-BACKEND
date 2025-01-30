@@ -5,15 +5,17 @@ import session from "express-session"
 import passport from "passport"
 import mongoose from "mongoose"
 import dotenv from "dotenv"; 
+import route from "./routes/index"
+
 
 dotenv.config()
 const app = express()
 
 
-let mongoDb = process.env.mongodb
+let mongoDb = "mongodb://localhost/toktik"
 const PORT = process.env.PORT || 4000;
 
-//mongoose.connect(mongoDb).then(() => console.log("connected to database"))
+mongoose.connect(mongoDb).then(() => console.log("connected to database"))
 
 app.set('trust proxy', 1); 
 app.use(cors({
@@ -34,8 +36,10 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get("/",  (request, response)=> {
-    response.send("hello world")
+app.use(route)
+
+app.post("/",  async (request, response)=> {
+    
 })
 
 
