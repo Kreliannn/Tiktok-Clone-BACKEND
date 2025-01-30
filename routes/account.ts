@@ -22,6 +22,8 @@ route.post(
 
 
 route.post("/sign_in", passport.authenticate("local"), (request, response) => {
+
+    console.log("welcome!!!!!!!!!!!")
     console.log(request.user)
     response.send(request.user)
 })

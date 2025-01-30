@@ -19,7 +19,7 @@ mongoose.connect(mongoDb).then(() => console.log("connected to database"))
 
 app.set('trust proxy', 1); 
 app.use(cors({
-    origin: "*",
+    origin: "http://localhost:3000",
     credentials : true
 }))
 app.use(express.json())
@@ -30,7 +30,7 @@ app.use(session({
     cookie: { 
         maxAge: 1000 * 60 * 60 * 24 * 7 ,
         httpOnly: true,
-        secure : true
+        secure : false
     }
 }))
 app.use(passport.initialize())
@@ -38,10 +38,20 @@ app.use(passport.session())
 
 app.use(route)
 
-app.post("/",  async (request, response)=> {
-    
+app.get("/sign_in",  async (request, response)=> {
+    if(request.user){
+        
+        response.send(request.user)
+    }
+    else
+    {
+        response.send("not authhenticate")
+    }
 })
 
 
 
 app.listen(PORT, () => console.log("express server is listening.............." + PORT))
+
+
+
