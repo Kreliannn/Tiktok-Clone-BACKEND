@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAccount } from "../controllers/account";
+import { createAccount, signIn } from "../controllers/account";
 import { body } from "express-validator";
 import "../auth/passport-local"
 import passport from "passport";
@@ -21,11 +21,6 @@ route.post(
 )
 
 
-route.post("/sign_in", passport.authenticate("local"), (request, response) => {
-
-    console.log("welcome!!!!!!!!!!!")
-    console.log(request.user)
-    response.send(request.user)
-})
+route.post("/sign_in", passport.authenticate("local"), signIn)
 
 export default route

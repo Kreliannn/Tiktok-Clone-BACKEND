@@ -1,12 +1,8 @@
 import { Request, Response } from "express"
 import { matchedData, validationResult } from "express-validator"
 import { addUser } from "../services/account"
+import { addUserType, userType } from "../interface/account"
 
-type userObj = {
-    fullname : string,
-    username : string,
-    password : string
-}
 
 export const createAccount = async (request: Request, response: Response)  => {
 
@@ -17,12 +13,23 @@ export const createAccount = async (request: Request, response: Response)  => {
         return
     }  
 
-    let data: userObj = matchedData(request)
+    let data: addUserType = matchedData(request)
 
     const newUser = await addUser(data)
 
    
     response.send(newUser)
+}
+
+export const signIn = (request: Request, response: Response) => {
+    if(!request.user)
+    {
+        response.send("user not found")
+        return
+    } 
+    
+    console.log("welcome " + (request.user as userType).username)
+    response.send(request.user)
 }
 
 
