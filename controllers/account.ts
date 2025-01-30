@@ -17,11 +17,12 @@ export const createAccount = async (request: Request, response: Response)  => {
 
     const newUser = await addUser(data)
 
-   
     response.send(newUser)
 }
 
+
 export const signIn = (request: Request, response: Response) => {
+
     if(!request.user)
     {
         response.send("user not found")
