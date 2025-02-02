@@ -1,4 +1,5 @@
-import { Types } from "mongoose"
+import { Types, Document } from "mongoose"
+
 
 export interface addUserType {
     fullname : string,
@@ -14,8 +15,7 @@ export interface createUserType {
     profile : string,
 }
 
-export interface userType  {
-     _id : Types.ObjectId,
+export interface userType extends Document {
     fullname : string,
     username : string,
     password : string,

@@ -1,13 +1,7 @@
 import { Schema, model, Document } from "mongoose";
+import { userType } from "../interface/account";
 
-interface UserInterface extends Document {
-    fullname : String,
-    username : String,
-    password : String,
-    profile : string
-}
-
-const User = new Schema<UserInterface>({
+const User = new Schema<userType>({
     fullname : String,
     username : String,
     password : String,
