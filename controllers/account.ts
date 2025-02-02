@@ -53,8 +53,9 @@ export const signIn = (request: Request, response: Response) => {
         return
     } 
     
-    console.log("welcome " + (request.user as userType).username)
-    response.send("welcome")
+    const { fullname, profile } = (request.user as userType) 
+   
+    response.send({fullname, profile})
 }
 
 
