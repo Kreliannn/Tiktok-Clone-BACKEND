@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { postImageUpload , getAllPost, postTextUpload} from "../controllers/post";
+import { getAllPost, postUpload} from "../controllers/post";
 
 const route = Router()
 
 route.get("/post", getAllPost)
-route.post("/post/upload/image", postImageUpload)
-route.post("/post/upload/text", postTextUpload)
+route.post("/post/upload", postUpload)
 
 
 export default route
