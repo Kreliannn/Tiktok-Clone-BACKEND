@@ -11,7 +11,8 @@ const Post = new Schema<postType>({
     imgUrl : String,
     vidUrl : String,
     postBody : String,
-    like : [{ user : Types.ObjectId }],
+    like : [Types.ObjectId],
+    favorite : [Types.ObjectId],
     comment : [{} as commentInterface],
     date : String
 })

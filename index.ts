@@ -38,15 +38,8 @@ app.use(passport.session())
 
 app.use(route)
 
-app.get("/sign_in",  async (request, response)=> {
-    if(request.user){
-        
-        response.send(request.user)
-    }
-    else
-    {
-        response.send("not authhenticate")
-    }
+app.get("/",  async (request, response)=> {
+    response.send("hi, welcome!!")
 })
 
 

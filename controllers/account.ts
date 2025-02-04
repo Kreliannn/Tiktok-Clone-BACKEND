@@ -53,9 +53,9 @@ export const signIn = (request: Request, response: Response) => {
         return
     } 
     
-    const { fullname, profile } = (request.user as userType) 
+    const { fullname, profile, _id } = (request.user as userType) 
    
-    response.send({fullname, profile})
+    response.send({fullname, profile, _id})
 }
 
 

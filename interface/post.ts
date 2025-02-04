@@ -8,8 +8,9 @@ export interface postType extends Document{
     imgUrl : string,
     vidUrl : string,
     postBody : string,
-    like : Types.ObjectId[] | [],
-    comment : commentInterface[] | [],
+    like : Types.ObjectId[],
+    favorite : Types.ObjectId[],
+    comment : commentInterface[],
     date : string
 }
 
@@ -20,8 +21,9 @@ export interface postInterface {
     imgUrl : string,
     vidUrl : string,
     postBody : string,
-    like : Types.ObjectId[] | [],
-    comment : commentInterface[] | [],
+    like : Types.ObjectId[],
+    favorite : Types.ObjectId[],
+    comment : commentInterface[],
     date : string
 }
 

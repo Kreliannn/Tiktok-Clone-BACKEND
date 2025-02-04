@@ -22,3 +22,11 @@ export interface userType extends Document {
     profile : string
 }
 
+export interface userInterface {
+    _id : Types.ObjectId,
+    fullname : string,
+    username : string,
+    password : string,
+    profile : string
+}
+
