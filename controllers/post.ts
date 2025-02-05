@@ -63,8 +63,16 @@ export const likePost = async (request: Request<{}, {}, { postId : string }>, re
 
     const post = await getPostById(postId)
     
-    if(post.like.includes(user._id)) post.like = post.like.filter((item) => item.toString() != user._id.toString())
-    else post.like.push(user._id)
+    if(post.like.includes(user._id))
+    {
+        post.like = post.like.filter((item) => item.toString() != user._id.toString())
+        console.log("unlike")
+    } 
+    else
+    {
+        post.like.push(user._id)
+        console.log("like")
+    } 
         
 
     // notif here
@@ -72,4 +80,34 @@ export const likePost = async (request: Request<{}, {}, { postId : string }>, re
     modifyPost(postId, post)
 
     response.send(post.like.includes(user._id))
+}
+
+
+export const favoritePost = async (request: Request<{}, {}, {postId : string}>, response: Response) => {
+    if(!request.user) {
+        response.status(500).send("not authenticated")
+        return
+    } 
+
+    const user = request.user as userInterface
+
+    const { postId } = request.body
+
+    const post = await getPostById(postId)
+
+    if(post.favorite.includes(user._id))
+    {
+        post.favorite = post.favorite.filter((item) => item.toString() != user._id.toString())
+        console.log("unfavorite")
+    } 
+    else
+    {
+        post.favorite.push(user._id)
+        console.log("favorite")
+    } 
+
+    modifyPost(postId, post)
+
+    response.send(post.favorite.includes(user._id))
+
 }
