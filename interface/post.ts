@@ -2,7 +2,10 @@ import { userType } from "./account"
 import { Document, Types } from "mongoose"
 
 export interface postType extends Document{
-    user : Types.ObjectId,
+    user : {
+        types : Types.ObjectId,
+        ref : string
+    },
     type : string,
     caption : string,
     imgUrl : string,

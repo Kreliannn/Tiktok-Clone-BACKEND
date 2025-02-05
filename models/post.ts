@@ -5,7 +5,10 @@ import { postType } from "../interface/post";
 
 
 const Post = new Schema<postType>({
-    user : Types.ObjectId,
+    user : {
+        type : Types.ObjectId,
+        ref : "user"
+    },
     type: String,
     caption : String,
     imgUrl : String,

@@ -1,7 +1,7 @@
 import { postType, postInterface } from "../interface/post"
 import Post from "../models/post"
 
-export const getPosts = async () => await Post.find()
+export const getPosts = async () => await Post.find().populate("user")
 
 export const getPostById = async (id: string): Promise<postType> => await Post.findById(id) as postType
 
