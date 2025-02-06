@@ -16,7 +16,14 @@ const Post = new Schema<postType>({
     postBody : String,
     like : [Types.ObjectId],
     favorite : [Types.ObjectId],
-    comment : [{} as commentInterface],
+    comment : [{
+        message : String,
+        sender : {
+            type : Types.ObjectId,
+            ref : "user"
+        },
+        Date : String
+    }],
     date : String
 })
 

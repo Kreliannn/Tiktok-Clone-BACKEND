@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { userType, userInterface } from "../interface/account";
 import { postType, postInterface } from "../interface/post";
-import { uploadPost, getPosts, getPostById, modifyPost} from "../services/post";
+import { uploadPost, getPosts, getPostById, modifyPost, pushComment} from "../services/post";
 import { Types } from "mongoose";
 import { commentInterface } from "../interface/post";
 
@@ -109,5 +109,23 @@ export const favoritePost = async (request: Request<{}, {}, {postId : string}>, 
     modifyPost(postId, post)
 
     response.send(post.favorite.includes(user._id))
+
+}
+
+
+export const addComment = async (request: Request<{},{},{ postId : string, comment : string}>, response: Response) => {
+    
+    if(!request.user) {
+        response.status(500).send("not authenticated")
+        return
+    } 
+
+    const user = request.user as userInterface
+
+    const { comment, postId } = request.body
+
+    const newComment = await pushComment(postId, user._id, comment)
+
+    response.send(newComment) 
 
 }

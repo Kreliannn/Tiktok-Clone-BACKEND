@@ -39,6 +39,6 @@ export interface postImageRequest {
 
 export interface commentInterface {
     message : string,
-    sender : userType,
+    sender : Types.ObjectId,
     date : string
 }
