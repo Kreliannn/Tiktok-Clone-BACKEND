@@ -3,7 +3,7 @@ import { getProfileInfo } from "../controllers/profile";
 
 const route = Router()
 
-route.get("/profile", getProfileInfo)
+route.get("/profile/:userId", getProfileInfo)
 
 
 export default route

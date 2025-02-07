@@ -6,6 +6,8 @@ export const getPosts = async () => await Post.find().populate("user").populate(
 
 export const getPostById = async (id: string): Promise<postType> => await Post.findById(id) as postType
 
+export const getPostByUserId = async (id: Types.ObjectId): Promise<postInterface[]> => await Post.find({ user : id}) as postInterface[]
+
 export const uploadPost = async (post: postInterface ): Promise<postType> => {
     return await Post.create(post)
 }

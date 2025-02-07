@@ -6,6 +6,7 @@ export interface addUserType {
     username : string,
     password : string,
     confirmPassword : string,
+    
 }
 
 export interface createUserType {
@@ -13,13 +14,16 @@ export interface createUserType {
     username : string,
     password : string,
     profile : string,
+
 }
 
 export interface userType extends Document {
     fullname : string,
     username : string,
     password : string,
-    profile : string
+    profile : string,
+    followers : Types.ObjectId[],
+    following : Types.ObjectId[],
 }
 
 export interface userInterface {
@@ -27,6 +31,8 @@ export interface userInterface {
     fullname : string,
     username : string,
     password : string,
-    profile : string
+    profile : string,
+    followers : Types.ObjectId[],
+    following : Types.ObjectId[],
 }
 
