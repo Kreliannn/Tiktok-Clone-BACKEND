@@ -124,6 +124,11 @@ export const addComment = async (request: Request<{},{},{ postId : string, comme
 
     const { comment, postId } = request.body
 
+    if(!comment){
+        response.status(500).send("empty field")
+        return
+    }
+
     const newComment = await pushComment(postId, user._id, comment)
 
     response.send(newComment) 
