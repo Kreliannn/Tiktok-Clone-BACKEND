@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-import { findUserById } from "../services/account";
+import { findUserById, handleFollow } from "../services/account";
 import { getPostByUserId } from "../services/post";
-import { userInterface } from "../interface/account";
+import { userInterface, userType } from "../interface/account";
 import { postType, postInterface } from "../interface/post";
 
 export const getProfileInfo = async (request: Request<{ userId : Types.ObjectId}>, response : Response) => {
@@ -31,5 +31,23 @@ export const getProfileInfo = async (request: Request<{ userId : Types.ObjectId}
         post : post
     })
     
+
+}
+
+export const followUnFollow = async (request: Request<{ id : Types.ObjectId}>, response: Response) => {
+
+    if(!request.user)
+    {
+        response.status(500).send("not authorize");
+    } 
+
+    const { id } = request.params
+
+    const user = request.user as userType
+    const userId = user._id as Types.ObjectId
+    const stalkedUserId = id
+    const result = await handleFollow(userId, stalkedUserId)
+    console.log(result)
+    response.send(result)
 
 }

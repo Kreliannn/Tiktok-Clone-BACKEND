@@ -13,6 +13,15 @@ export const getAllPost = async (request: Request, response: Response) => {
 }
 
 
+export const getAllProfilePost = async (request: Request<{id : string}>, response: Response) => {
+   
+    const { id } = request.params
+
+    const allPost = await getPosts("profile", id)
+    response.send(allPost)
+}
+
+
 export const postUpload = async (request: Request<{}, {}, { caption : string, type : string, value : string }>, response: Response) => {
 
     if(!request.user) {
