@@ -65,8 +65,9 @@ export const userNotification = async (request: Request, response: Response) => 
     
 
     const notification = await getNotification(user._id as Types.ObjectId)
+    const reverse = notification.reverse()
 
-    response.send(notification)
+    response.send(reverse)
 
 }
 

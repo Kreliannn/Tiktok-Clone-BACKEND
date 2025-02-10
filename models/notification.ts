@@ -26,7 +26,7 @@ const Notification = new Schema<notifTypeComplete>({
     to : Types.ObjectId,
     from : {
         type : Types.ObjectId,
-        ref : "user "
+        ref : "user"
     },
     type : String,
     date : String

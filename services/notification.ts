@@ -8,5 +8,5 @@ export const addNotication = async (data : notifType) => {
 
 
 export const getNotification = async (userId : Types.ObjectId) => {
-    return Notification.find({ to : userId }).populate("from").populate("post")
+    return Notification.find({ to : userId }).populate("from")
 } 

@@ -9,7 +9,7 @@ export const createAccount = async (request: Request, response: Response)  => {
     const error = validationResult(request)
 
     if(!error.isEmpty()){
-        response.status(500).send({ "msg" : error.array()[0].msg})
+        response.status(500).send(error.array()[0].msg)
         return
     }  
 
