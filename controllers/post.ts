@@ -4,7 +4,8 @@ import { postType, postInterface } from "../interface/post";
 import { uploadPost, getPosts, getPostById, modifyPost, pushComment} from "../services/post";
 import { Types } from "mongoose";
 import { commentInterface } from "../interface/post";
-
+import { addNotication } from "../services/notification";
+import { notifType } from "../interface/notification";
 
 
 export const getAllPost = async (request: Request, response: Response) => {
@@ -52,7 +53,7 @@ export const postUpload = async (request: Request<{}, {}, { caption : string, ty
         date : Date.now().toString()
     }
 
-    const newPost = {...template, [property] : value }
+    const newPost = {...template, [property] : value } 
 
     let uploaded = await uploadPost(newPost)
     console.log(uploaded)
@@ -70,7 +71,7 @@ export const likePost = async (request: Request<{}, {}, { postId : string }>, re
 
     const { postId } = request.body
 
-    const post = await getPostById(postId)
+    const post = await getPostById(postId) as postInterface
     
     if(post.like.includes(user._id))
     {
@@ -83,10 +84,17 @@ export const likePost = async (request: Request<{}, {}, { postId : string }>, re
         console.log("like")
     } 
         
-
-    // notif here
-
     modifyPost(postId, post)
+
+    const notifData = {
+        to : post.user,
+        from : user._id ,
+        post : post._id,
+        type : "liked",
+        date : Date.now().toString()
+    }
+
+    await addNotication(notifData as notifType)
 
     response.send(post.like.includes(user._id))
 }
@@ -117,6 +125,16 @@ export const favoritePost = async (request: Request<{}, {}, {postId : string}>, 
 
     modifyPost(postId, post)
 
+    const notifData = {
+        to : post.user,
+        from : user._id ,
+        post : post._id,
+        type : "addToFavorite",
+        date : Date.now().toString()
+    }
+
+    await addNotication(notifData as notifType)
+
     response.send(post.favorite.includes(user._id))
 
 }
@@ -139,6 +157,8 @@ export const addComment = async (request: Request<{},{},{ postId : string, comme
     }
 
     const newComment = await pushComment(postId, user._id, comment)
+
+    
 
     response.send(newComment) 
 

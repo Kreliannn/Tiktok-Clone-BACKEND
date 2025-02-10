@@ -5,6 +5,7 @@ import { getPostByUserId } from "../services/post";
 import { userInterface, userType } from "../interface/account";
 import { postType, postInterface } from "../interface/post";
 
+
 export const getProfileInfo = async (request: Request<{ userId : Types.ObjectId}>, response : Response) => {
     
     const { userId } = request.params

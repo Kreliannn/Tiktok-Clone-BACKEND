@@ -17,7 +17,20 @@ export interface postType extends Document{
     date : string
 }
 
-export interface postInterface {
+export interface postInterface extends Document{
+    user : Types.ObjectId,
+    type : string,
+    caption : string,
+    imgUrl : string,
+    vidUrl : string,
+    postBody : string,
+    like : Types.ObjectId[],
+    favorite : Types.ObjectId[],
+    comment : commentInterface[],
+    date : string
+}
+
+export interface postInterface2 {
     user : Types.ObjectId,
     type : string,
     caption : string,

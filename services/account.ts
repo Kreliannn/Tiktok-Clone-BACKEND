@@ -1,7 +1,8 @@
 import User from "../models/account"
 import { Types } from "mongoose"
 import { addUserType, userType , createUserType} from "../interface/account"
-
+import { addNotication } from "./notification"
+import { notifType } from "../interface/notification"
 
 export const addUser = async (user: createUserType) => {
     console.log(user)
@@ -52,6 +53,16 @@ export const handleFollow = async (userId : Types.ObjectId, stalkedUserId : Type
         
         await stalkedUser.save()
         await user.save()
+
+        const notifData = {
+            to : stalkedUserId,
+            from : userId ,
+            post : stalkedUserId,
+            type : "follow",
+            date : Date.now().toString()
+        }
+            
+        await addNotication(notifData as notifType)
 
         return "follow"
     }
