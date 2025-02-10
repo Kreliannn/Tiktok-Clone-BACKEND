@@ -1,4 +1,4 @@
-import { Types } from "mongoose"
+import { Types, Document } from "mongoose"
 
 export interface notifType {
     post : Types.ObjectId,
@@ -7,3 +7,4 @@ export interface notifType {
     type : string,
     date : string
 }
+

@@ -82,19 +82,21 @@ export const likePost = async (request: Request<{}, {}, { postId : string }>, re
     {
         post.like.push(user._id)
         console.log("like")
+
+        const notifData = {
+            to : post.user,
+            from : user._id ,
+            post : post._id,
+            type : "liked",
+            date : Date.now().toString()
+        }
+    
+        await addNotication(notifData as notifType)
     } 
         
     modifyPost(postId, post)
 
-    const notifData = {
-        to : post.user,
-        from : user._id ,
-        post : post._id,
-        type : "liked",
-        date : Date.now().toString()
-    }
-
-    await addNotication(notifData as notifType)
+   
 
     response.send(post.like.includes(user._id))
 }
@@ -121,19 +123,19 @@ export const favoritePost = async (request: Request<{}, {}, {postId : string}>, 
     {
         post.favorite.push(user._id)
         console.log("favorite")
+
+        const notifData = {
+            to : post.user,
+            from : user._id ,
+            post : post._id,
+            type : "addToFavorite",
+            date : Date.now().toString()
+        }
+    
+        await addNotication(notifData as notifType)
     } 
 
     modifyPost(postId, post)
-
-    const notifData = {
-        to : post.user,
-        from : user._id ,
-        post : post._id,
-        type : "addToFavorite",
-        date : Date.now().toString()
-    }
-
-    await addNotication(notifData as notifType)
 
     response.send(post.favorite.includes(user._id))
 

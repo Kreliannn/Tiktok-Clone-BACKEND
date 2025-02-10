@@ -4,6 +4,7 @@ import { findUserById, handleFollow } from "../services/account";
 import { getPostByUserId } from "../services/post";
 import { userInterface, userType } from "../interface/account";
 import { postType, postInterface } from "../interface/post";
+import { getNotification } from "../services/notification";
 
 
 export const getProfileInfo = async (request: Request<{ userId : Types.ObjectId}>, response : Response) => {
@@ -52,3 +53,21 @@ export const followUnFollow = async (request: Request<{ id : Types.ObjectId}>, r
     response.send(result)
 
 }
+
+export const userNotification = async (request: Request, response: Response) => {
+
+    if(!request.user)
+    {
+        response.status(500).send("not authorize");
+    } 
+
+    const user = request.user as userType
+    
+
+    const notification = await getNotification(user._id as Types.ObjectId)
+
+    response.send(notification)
+
+}
+
+
