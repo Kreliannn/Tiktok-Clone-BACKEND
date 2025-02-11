@@ -6,8 +6,8 @@ const User = new Schema<userType>({
     username : String,
     password : String,
     profile : String,
-    followers : [Types.ObjectId],
-    following : [Types.ObjectId]
+    followers : [{ type : Types.ObjectId, ref : "user"}],
+    following : [{ type : Types.ObjectId, ref : "user"}]
 })
 
 export default model("user", User)

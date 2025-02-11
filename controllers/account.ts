@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { matchedData, validationResult } from "express-validator"
-import { addUser, checkUsernameExist } from "../services/account"
-import { addUserType, userType, createUserType } from "../interface/account"
+import { addUser, checkUsernameExist, getUserFollowing } from "../services/account"
+import { addUserType, userType, createUserType, userInterface } from "../interface/account"
 
 
 export const createAccount = async (request: Request, response: Response)  => {
@@ -61,3 +61,16 @@ export const signIn = (request: Request, response: Response) => {
 }
 
 
+
+export const getFollowing = async (request : Request, response : Response) => {
+
+   
+    const user = request.user as userInterface
+
+    const userWithFollowing = await getUserFollowing(user._id)
+
+    console.log(userWithFollowing)
+
+    response.send(userWithFollowing)
+
+}

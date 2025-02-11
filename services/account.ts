@@ -68,3 +68,6 @@ export const handleFollow = async (userId : Types.ObjectId, stalkedUserId : Type
     }
    
 }
+
+
+export const getUserFollowing = async (userId : Types.ObjectId) => await User.findById(userId).populate("following").populate("followers")
