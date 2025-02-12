@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-import { findUserById, handleFollow } from "../services/account";
+import { findUserById, handleFollow, changeProfile } from "../services/account";
 import { getPostByUserId } from "../services/post";
 import { userInterface, userType } from "../interface/account";
 import { postType, postInterface } from "../interface/post";
@@ -70,5 +70,22 @@ export const userNotification = async (request: Request, response: Response) => 
     response.send(reverse)
 
 }
+
+export const changeProfilePicture = async (request : Request<{}, {}, {profileUrl : string}>, response : Response) => {
+    if(!request.user)
+    {
+        response.status(500).send("not authorize");
+    } 
+    
+    const user = request.user as userInterface
+
+    const { profileUrl } = request.body
+
+    await changeProfile(user._id, profileUrl)
+    
+    response.send("success")
+}
+
+
 
 

@@ -36,7 +36,7 @@ export const handleFollow = async (userId : Types.ObjectId, stalkedUserId : Type
     if(stalkedUser.followers.includes(userId))
     {
         let removedFollow = stalkedUser.followers.filter((item) => item.toString() != userId.toString())
-        let removedFollowing = stalkedUser.followers.filter((item) => item.toString() != stalkedUserId.toString())
+        let removedFollowing = user.followers.filter((item) => item.toString() != stalkedUserId.toString())
 
         stalkedUser.followers = removedFollow
         user.following = removedFollowing
@@ -69,5 +69,10 @@ export const handleFollow = async (userId : Types.ObjectId, stalkedUserId : Type
    
 }
 
+export const changeProfile = async (id : Types.ObjectId, url : string) => {
+    const user = await User.findById(id) as userType
+    user.profile = url
+    await user.save()
+}
 
 export const getUserFollowing = async (userId : Types.ObjectId) => await User.findById(userId).populate("following").populate("followers")
